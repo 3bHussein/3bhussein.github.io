@@ -1,0 +1,29 @@
+/* Professional portfolio refresh — additive, keeps original resume content intact */
+:root{--pro-navy:#14263e;--pro-blue:#2563eb;--pro-ink:#1e293b;--pro-muted:#64748b;--pro-line:#e2e8f0}
+html{scroll-behavior:smooth}body{color:var(--pro-ink);background:#f8fafc;font-family:Muli,system-ui,sans-serif}
+#sideNav{background:var(--pro-navy)!important;box-shadow:6px 0 30px rgba(15,23,42,.12)}
+#sideNav .nav-link{letter-spacing:.055em;transition:color .2s,transform .2s}
+#sideNav .nav-link:hover,#sideNav .nav-link.active{color:#93c5fd!important;transform:translateX(3px)}
+#sideNav .img-profile{border-color:rgba(255,255,255,.3)!important;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+section.resume-section{max-width:88rem;scroll-margin-top:4.5rem}
+section.resume-section .resume-section-content{background:#fff;border:1px solid var(--pro-line);border-radius:20px;padding:clamp(1.5rem,4vw,3.5rem);box-shadow:0 12px 35px rgba(15,23,42,.035)}
+h1,h2,h3{color:var(--pro-navy)}h1{letter-spacing:-.025em;line-height:1.06}h2{letter-spacing:-.02em}
+.text-primary{color:var(--pro-blue)!important}a{color:var(--pro-blue)}a:hover{color:#1d4ed8}
+.subheading{color:var(--pro-muted)}.lead{line-height:1.8;max-width:65ch}
+.social-icons .social-icon{background:var(--pro-navy);transition:transform .2s,background .2s}
+.social-icons .social-icon:hover{background:var(--pro-blue);transform:translateY(-3px)}
+.progress{border-radius:20px;background:#e2e8f0}.progress-bar{background:var(--pro-blue)}
+hr.m-0{border-color:transparent}
+a:focus-visible,button:focus-visible{outline:3px solid #60a5fa;outline-offset:4px}
+@media(max-width:991.98px){#sideNav{box-shadow:0 4px 18px rgba(15,23,42,.14)}section.resume-section{padding:5rem 1rem 2rem;min-height:auto}section.resume-section .resume-section-content{padding:1.5rem;border-radius:16px}h1{font-size:clamp(2.8rem,10vw,4.5rem)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* Featured project cards */
+.pro-eyebrow{font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pro-blue);margin-bottom:.6rem}
+.pro-project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem}
+.pro-project{display:flex;flex-direction:column;gap:.75rem;padding:1.5rem;border:1px solid var(--pro-line);border-radius:16px;background:#fff;box-shadow:0 5px 20px rgba(15,23,42,.035);transition:transform .2s,box-shadow .2s}
+.pro-project:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(15,23,42,.09)}
+.pro-project h3{font-size:1.6rem;margin:0}.pro-project p{line-height:1.65;flex:1;margin:0}
+.pro-project-type{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pro-muted)}
+.pro-project-actions{display:flex;flex-wrap:wrap;gap:1rem;font-weight:800}
+@media(prefers-reduced-motion:reduce){.pro-project:hover{transform:none}}
