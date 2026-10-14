@@ -121,3 +121,6 @@ section.resume-section:not(#about) h2{color:#0f2036}
 @media(max-width:900px){#education .resume-section-content>.d-flex{grid-template-columns:1fr;padding:1.4rem}#education .flex-shrink-0{text-align:left;order:-1;max-width:none}#certificates .row{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){#certificates .row{grid-template-columns:1fr}#certificates img{height:auto;max-height:280px}#education .resume-section-content>.d-flex{padding:1.2rem}}
 @media(prefers-reduced-motion:reduce){#certificates .row>[class*="col-"]{transition:none}#certificates .row>[class*="col-"]:hover{transform:none}}
+
+/* Improve contrast for project category labels in the light project cards. */
+.pro-project-type{color:#334155!important}
