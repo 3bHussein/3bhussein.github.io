@@ -38,6 +38,13 @@ class PortfolioTests(unittest.TestCase):
         self.assertIn('rel="canonical" href="https://3bhussein.github.io/"', self.html)
         self.assertIn('name="theme-color"', self.html)
         self.assertIn('https://3bhussein.github.io/assets/img/profile.jfif', self.html)
+    def test_v2_design(self):
+        self.assertIn('href="css/portfolio-v2.css"', self.html)
+        self.assertIn('class="hero-kicker"', self.html)
+        self.assertIn('class="hero-actions"', self.html)
+        v2=(ROOT/"css/portfolio-v2.css").read_text(encoding="utf-8")
+        self.assertIn("#about",v2)
+        self.assertIn("@media(max-width:620px)",v2)
     def test_no_global_blank_target(self):
         self.assertNotIn('<base target="_blank">',self.html)
 
