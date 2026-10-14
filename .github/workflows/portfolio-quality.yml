@@ -71,6 +71,21 @@ jobs:
           const summary = { mobilePerformanceMedian: sorted[1], mobilePerformanceRange: [sorted[0], sorted[2]], results };
           console.log('MOBILE PERFORMANCE MEDIAN:', summary.mobilePerformanceMedian, 'RANGE:', summary.mobilePerformanceRange.join('-'));
           fs.writeFileSync('lighthouse-reports/summary.json', JSON.stringify(summary, null, 2));
+          const desktop = results[0].categories;
+          const violations = [];
+          if (desktop.performance < 90) violations.push('Desktop performance below 90');
+          if (summary.mobilePerformanceMedian < 85) violations.push('Mobile median performance below 85');
+          for (const result of results) {
+            if (result.categories.accessibility < 95) violations.push(result.name + ': accessibility below 95');
+            if (result.categories.seo < 95) violations.push(result.name + ': SEO below 95');
+            if (result.categories['best-practices'] < 95) violations.push(result.name + ': best practices below 95');
+          }
+          if (violations.length) {
+            console.error('Lighthouse quality gates failed:', violations.join('; '));
+            process.exitCode = 1;
+          } else {
+            console.log('Lighthouse quality gates passed');
+          }
           NODE
       - name: Upload Lighthouse reports
         if: always()
