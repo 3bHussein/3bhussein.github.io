@@ -49,12 +49,29 @@ jobs:
             sleep 1
           done
           exit 1
-      - name: Audit mobile and desktop performance
+      - name: Audit mobile performance three times and desktop once
         run: |
           mkdir -p lighthouse-reports
           npx --yes lighthouse@12 http://127.0.0.1:8765/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --preset=desktop --output=json --output=html --output-path=./lighthouse-reports/desktop --quiet
-          npx --yes lighthouse@12 http://127.0.0.1:8765/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile=true --screenEmulation.width=390 --screenEmulation.height=844 --screenEmulation.deviceScaleFactor=1 --throttling-method=simulate --output=json --output=html --output-path=./lighthouse-reports/mobile --quiet
-          node -e 'for (const device of ["desktop","mobile"]) { const r=require("./lighthouse-reports/"+device+".report.json"); console.log(device, Object.fromEntries(Object.entries(r.categories).map(([k,v])=>[k,Math.round(v.score*100)]))); }'
+          for i in 1 2 3; do
+            npx --yes lighthouse@12 http://127.0.0.1:8765/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile=true --screenEmulation.width=390 --screenEmulation.height=844 --screenEmulation.deviceScaleFactor=1 --throttling-method=simulate --output=json --output=html --output-path="./lighthouse-reports/mobile-$i" --quiet
+          done
+          node - <<'NODE'
+          const fs = require('fs');
+          const names = ['desktop', 'mobile-1', 'mobile-2', 'mobile-3'];
+          const results = names.map(name => {
+            const r = JSON.parse(fs.readFileSync('lighthouse-reports/' + name + '.report.json', 'utf8'));
+            const categories = Object.fromEntries(Object.entries(r.categories).map(([key, value]) => [key, Math.round(value.score * 100)]));
+            const metrics = Object.fromEntries(['first-contentful-paint', 'largest-contentful-paint', 'total-blocking-time', 'cumulative-layout-shift', 'speed-index'].map(id => [id, r.audits[id]?.numericValue ?? null]));
+            console.log(name, categories, metrics);
+            return { name, categories, metrics };
+          });
+          const mobile = results.slice(1);
+          const sorted = mobile.map(x => x.categories.performance).sort((a, b) => a - b);
+          const summary = { mobilePerformanceMedian: sorted[1], mobilePerformanceRange: [sorted[0], sorted[2]], results };
+          console.log('MOBILE PERFORMANCE MEDIAN:', summary.mobilePerformanceMedian, 'RANGE:', summary.mobilePerformanceRange.join('-'));
+          fs.writeFileSync('lighthouse-reports/summary.json', JSON.stringify(summary, null, 2));
+          NODE
       - name: Upload Lighthouse reports
         if: always()
         uses: actions/upload-artifact@v4
