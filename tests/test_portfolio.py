@@ -45,6 +45,14 @@ class PortfolioTests(unittest.TestCase):
         v2=(ROOT/"css/portfolio-v2.css").read_text(encoding="utf-8")
         self.assertIn("#about",v2)
         self.assertIn("@media(max-width:620px)",v2)
+    def test_v3_rebuilt_layout(self):
+        self.assertIn('class="v3-header"',self.html)
+        self.assertIn('class="v3-hero-grid"',self.html)
+        self.assertNotIn('id="sideNav"',self.html)
+        self.assertIn('href="css/portfolio-v3.css"',self.html)
+        self.assertIn('src="js/portfolio-v3.js"',self.html)
+        css=(ROOT/"css/portfolio-v3.css").read_text(encoding="utf-8")
+        self.assertIn("@media(max-width:620px)",css)
     def test_no_global_blank_target(self):
         self.assertNotIn('<base target="_blank">',self.html)
 
