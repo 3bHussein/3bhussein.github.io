@@ -34,6 +34,10 @@ class PortfolioTests(unittest.TestCase):
         self.assertIn("@media(max-width:991.98px)",self.css)
         self.assertIn("prefers-reduced-motion",self.css)
         self.assertTrue(all(img.get("alt") is not None for img in self.page.images))
+    def test_social_metadata(self):
+        self.assertIn('rel="canonical" href="https://3bhussein.github.io/"', self.html)
+        self.assertIn('name="theme-color"', self.html)
+        self.assertIn('https://3bhussein.github.io/assets/img/profile.jfif', self.html)
     def test_no_global_blank_target(self):
         self.assertNotIn('<base target="_blank">',self.html)
 
