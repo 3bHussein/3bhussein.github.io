@@ -33,3 +33,32 @@ jobs:
           name: portfolio-browser-screenshots
           path: browser-screenshots/
           if-no-files-found: ignore
+
+  lighthouse-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Start local portfolio server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/portfolio-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8765/ -o /dev/null; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Audit mobile and desktop performance
+        run: |
+          mkdir -p lighthouse-reports
+          npx --yes lighthouse@12 http://127.0.0.1:8765/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --preset=desktop --output=json --output=html --output-path=./lighthouse-reports/desktop --quiet
+          npx --yes lighthouse@12 http://127.0.0.1:8765/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile=true --screenEmulation.width=390 --screenEmulation.height=844 --screenEmulation.deviceScaleFactor=1 --throttling-method=simulate --output=json --output=html --output-path=./lighthouse-reports/mobile --quiet
+          node -e 'for (const device of ["desktop","mobile"]) { const r=require("./lighthouse-reports/"+device+".report.json"); console.log(device, Object.fromEntries(Object.entries(r.categories).map(([k,v])=>[k,Math.round(v.score*100)]))); }'
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-lighthouse-reports
+          path: lighthouse-reports/
+          if-no-files-found: ignore
