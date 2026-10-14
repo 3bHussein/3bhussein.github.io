@@ -17,3 +17,13 @@ hr.m-0{border-color:transparent}
 a:focus-visible,button:focus-visible{outline:3px solid #60a5fa;outline-offset:4px}
 @media(max-width:991.98px){#sideNav{box-shadow:0 4px 18px rgba(15,23,42,.14)}section.resume-section{padding:5rem 1rem 2rem;min-height:auto}section.resume-section .resume-section-content{padding:1.5rem;border-radius:16px}h1{font-size:clamp(2.8rem,10vw,4.5rem)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* Featured project cards */
+.pro-eyebrow{font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pro-blue);margin-bottom:.6rem}
+.pro-project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem}
+.pro-project{display:flex;flex-direction:column;gap:.75rem;padding:1.5rem;border:1px solid var(--pro-line);border-radius:16px;background:#fff;box-shadow:0 5px 20px rgba(15,23,42,.035);transition:transform .2s,box-shadow .2s}
+.pro-project:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(15,23,42,.09)}
+.pro-project h3{font-size:1.6rem;margin:0}.pro-project p{line-height:1.65;flex:1;margin:0}
+.pro-project-type{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pro-muted)}
+.pro-project-actions{display:flex;flex-wrap:wrap;gap:1rem;font-weight:800}
+@media(prefers-reduced-motion:reduce){.pro-project:hover{transform:none}}
