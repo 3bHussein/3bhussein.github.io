@@ -124,3 +124,15 @@ section.resume-section:not(#about) h2{color:#0f2036}
 
 /* Improve contrast for project category labels in the light project cards. */
 .pro-project-type{color:#334155!important}
+
+/* Project case studies: readable, tappable layout on compact screens. */
+#projects .v4-project-body p{line-height:1.65;overflow-wrap:anywhere}
+#projects .v4-project-body p strong{font-weight:700}
+#projects .pro-project-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.55rem .8rem;border-radius:.65rem;text-align:center}
+@media(max-width:620px){
+ #projects .pro-project-grid{gap:1.15rem}
+ #projects .v4-project-card .v4-project-body{padding:1.2rem 1.1rem 1.4rem}
+ #projects .v4-project-body p{font-size:.96rem;line-height:1.6;margin-bottom:.75rem}
+ #projects .v4-project-card .pro-project-actions{gap:.65rem;padding-top:.6rem}
+ #projects .pro-project-actions a{flex:1 1 125px}
+}
