@@ -29,7 +29,7 @@ try:
             page.goto(url, wait_until="domcontentloaded")
             page.locator(".v3-header").wait_for()
             assert page.locator("#about h1").is_visible(), f"{name}: hero missing"
-            assert page.locator("#projects .pro-project").count() == 3, f"{name}: project cards missing"
+            assert page.locator("#projects .pro-project").count() == 4, f"{name}: project cards missing"
             assert page.locator("#experience").count() == 1
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 2"), f"{name}: horizontal overflow"
             # Check internal navigation destinations and referenced local media.
@@ -71,3 +71,4 @@ try:
         browser.close()
 finally:
     server.shutdown()
+

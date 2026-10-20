@@ -136,3 +136,8 @@ section.resume-section:not(#about) h2{color:#0f2036}
  #projects .v4-project-card .pro-project-actions{gap:.65rem;padding-top:.6rem}
  #projects .pro-project-actions a{flex:1 1 125px}
 }
+
+
+/* Autel operations concept: schematic illustration with synthetic counts. */
+.v4-autel{background:linear-gradient(140deg,#12253e,#235185)}.autel-concept-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:1.25rem 0 .85rem}.autel-concept-metrics div{padding:.7rem;background:#ffffff12;border:1px solid #ffffff1c;border-radius:8px}.autel-concept-metrics strong{display:block;font-size:1.45rem;color:#fff;line-height:1}.autel-concept-metrics small{display:block;font-size:.48rem;letter-spacing:.09em;margin-top:.45rem;color:#b7cce3}.autel-concept-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ffffff18;padding:.45rem .2rem;font-size:.58rem}.autel-used{color:#b6cafa}.autel-ready{color:#90e2b9}.autel-private-note{font-size:.65rem;line-height:1.5;color:#8190a5}.pro-project-actions{flex-wrap:wrap}
+@media(min-width:901px){#projects .pro-project-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}

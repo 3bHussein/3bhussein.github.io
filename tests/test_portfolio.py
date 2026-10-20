@@ -25,7 +25,7 @@ class PortfolioTests(unittest.TestCase):
         self.assertTrue({"about","experience","education","skills","languages","certificates"}.issubset(self.page.sections))
     def test_projects_present(self):
         self.assertIn("projects",self.page.sections)
-        self.assertEqual(self.page.project_cards,3)
+        self.assertEqual(self.page.project_cards,4)
     def test_navigation_targets(self):
         self.assertFalse(set(self.page.anchors)-self.page.sections-{"page-top"})
     def test_theme_linked(self):
@@ -53,7 +53,16 @@ class PortfolioTests(unittest.TestCase):
         self.assertIn('src="js/portfolio-v3.js"',self.html)
         css=(ROOT/"css/portfolio-v3.css").read_text(encoding="utf-8")
         self.assertIn("@media(max-width:620px)",css)
+    def test_autel_concept(self):
+        self.assertIn('autel-code-tracker.html',self.html)
+        concept=(ROOT/'autel-code-tracker.html').read_text()
+        self.assertIn('CONCEPT CASE STUDY',concept)
+        self.assertIn('synthetic',concept)
+        self.assertTrue((ROOT/'assets/img/autel-tracker-demo.webp').is_file())
+        self.assertNotIn('workers.dev',concept)
+        self.assertNotIn('supabase.co',concept)
     def test_no_global_blank_target(self):
         self.assertNotIn('<base target="_blank">',self.html)
 
 if __name__=="__main__": unittest.main()
+
